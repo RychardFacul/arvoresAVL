@@ -22,11 +22,6 @@ int main()
     return 0;
 }
 
-int maior(int n1, int n2)
-{
-    return n1 > n2? n1: n2;
-}
-
 No* novoNo(int valor)
 {
     No* no = malloc(sizeof(no));
@@ -52,13 +47,24 @@ int alturaNo(No* raiz)
 
 No* inserirNo(No* raiz, int valor)
 {
-    if (raiz) return novoNo(valor);
+    if (raiz) {
+        return novoNo(valor);
+    }
 
-    if (valor > raiz->valor) raiz->direita = inserirNo(raiz->direita, valor);
-    else if (valor < raiz->valor) raiz->esquerda = inserirNo(raiz->esquerda, valor);
-    else printf("O valor já existe nesta Arvore");
+    if (valor > raiz->valor) {
+        raiz->direita = inserirNo(raiz->direita, valor);
+    }
+    else if (valor < raiz->valor) {
+        raiz->esquerda = inserirNo(raiz->esquerda, valor);
+    }
+    else {
+        printf("O valor já existe nesta Arvore");
+    }
 
-    raiz->altura = maior(alturaNo(raiz->esquerda), alturaNo(raiz->direita)) + 1;
+    int ae = alturaNo(raiz->esquerda);
+    int ad = alturaNo(raiz->direita);
+
+    raiz->altura = (ae > ad? ae: ad) + 1;
     balancear(raiz);
 
     return raiz;
